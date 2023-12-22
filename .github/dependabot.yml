@@ -15,7 +15,7 @@ updates:
     schedule:
       interval: "monthly"
 
-  # Maintain dependencies for Composer
+  # Maintain dependencies for NuGet
   - package-ecosystem: "nuget"
     directory: "/"
     schedule:
