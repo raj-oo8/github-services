@@ -2,7 +2,6 @@ name: Deploy to GitHub Pages
 env:
   PUBLISH_DIR: src/Blazor.Client.HelloWorld/bin/Release/net8.0/publish/wwwroot
 
-# Controls when the action will run
 on:
   push:
     branches: [ main ]
@@ -27,10 +26,24 @@ jobs:
         html_path: ${{ env.PUBLISH_DIR }}/index.html
         base_href: /BlazorOnGitHubPages/
 
+    - name: Archive production artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: published-app
+        path: ${{ env.PUBLISH_DIR }}
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+    - name: Download artifacts
+      uses: actions/download-artifact@v2
+      with:
+        name: published-app
+
     - name: GitHub Pages
-      if: success()
       uses: JamesIves/github-pages-deploy-action@4.1.5
       with:
         branch: gh-pages
-        folder: ${{ env.PUBLISH_DIR }}
+        folder: ./published-app
         token: ${{ secrets.GH_PAT }}
