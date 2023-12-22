@@ -1,6 +1,6 @@
 name: Deploy to GitHub Pages
 env:
-  PUBLISH_DIR: bin/Release/net8.0/publish/wwwroot
+  PUBLISH_DIR: src/Blazor.Client.HelloWorld/bin/Release/net8.0/publish/wwwroot
 
 # Controls when the action will run
 on:
@@ -12,6 +12,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '8.0.x'
 
     - name: Publish app
       run: dotnet publish ./src/Blazor.Client.HelloWorld/Blazor.Client.HelloWorld.csproj -c Release
