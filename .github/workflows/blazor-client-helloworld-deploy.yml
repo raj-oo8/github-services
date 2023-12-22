@@ -33,4 +33,4 @@ jobs:
       with:
         branch: gh-pages
         folder: ${{ env.PUBLISH_DIR }}
-        token: ${{ secrets.GITHUB_TOKEN }}
+        token: ${{ secrets.GH_PAT }}
