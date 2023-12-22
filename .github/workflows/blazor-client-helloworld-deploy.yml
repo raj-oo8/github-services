@@ -29,9 +29,8 @@ jobs:
 
     - name: GitHub Pages
       if: success()
-      uses: crazy-max/ghaction-github-pages@v1.5.1
+      uses: JamesIves/github-pages-deploy-action@4.1.5
       with:
-        target_branch: gh-pages
-        build_dir: ${{ env.PUBLISH_DIR }}
-      env:
-        GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+        branch: gh-pages
+        folder: ${{ env.PUBLISH_DIR }}
+        token: ${{ secrets.GITHUB_TOKEN }}
