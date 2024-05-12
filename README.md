@@ -1,21 +1,20 @@
-# Hello World custom action
+# GitHub Services
 
-This action prints "Hello World" or "Hello" + the name of a person to greet to the log.
+## Description
+GitHub Services is a repository that focuses on demoing feature of GitHub using Blazor Web Assembly and Azure Static Web Apps.
 
-## Inputs
+## Language Composition
+The repository primarily consists of several languages with the following distribution:
 
-## `who-to-greet`
+- HTML: 44.1%
+- CSS: 28.4%
+- JavaScript: 21.9%
+- C#: 3.7%
+- Dockerfile: 1.5%
+- Shell: 0.4%
 
-**Required** The name of the person to greet. Default `"World"`.
+## Contributing
+We welcome contributions from everyone. Please see our [CONTRIBUTING.md](link-to-contributing.md) file for how to contribute to our project.
 
-## Outputs
-
-## `time`
-
-The time we greeted you.
-
-## Example usage
-
-uses: actions/hello-world-docker-action@v2
-with:
-  who-to-greet: 'Contoso'
+## License
+This project is licensed under [insert license name here]. For more information, please see our [LICENSE.md](link-to-license.md) file.

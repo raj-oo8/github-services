@@ -16,7 +16,7 @@ jobs:
 
       # Step 2: Run custom action
       - name: Run custom action 
-        uses: ./ # Uses an action in the root directory
+        uses: ./DockerContainer # Uses an action in the root directory
         id: hello
         with:
           who-to-greet: 'GitHub'
