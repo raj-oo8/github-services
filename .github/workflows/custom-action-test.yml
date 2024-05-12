@@ -2,14 +2,19 @@ name: Test custom action
 on: workflow_dispatch
 
 jobs:
+
+  #====== Test ======#
   hello_world_job:
     runs-on: ubuntu-latest
     name: Test
+
     steps:
-      # To use this repository's private action,
-      # you must check out the repository
+
+      # Step 1: Checkout the repository
       - name: Checkout
         uses: actions/checkout@v4
+
+      # Step 2: Run custom action
       - name: Run custom action 
         uses: ./ # Uses an action in the root directory
         id: hello

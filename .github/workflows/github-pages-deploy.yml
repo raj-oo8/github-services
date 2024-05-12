@@ -1,38 +1,47 @@
 name: Deploy to GitHub Pages
+on: workflow_dispatch
 env:
   PUBLISH_DIR: src/AspNet.Core.Blazor.WebAssembly/bin/Release/net8.0/publish/wwwroot
 
-# Allow manual trigger 
-on: workflow_dispatch
-
 jobs:
+
+  #====== Build and publish ======#
   build:
     name: Build
     runs-on: ubuntu-latest
+
     steps:
+
+    # Step 1: Checkout the repository
     - name: Checkout
       uses: actions/checkout@v4
 
+    # Step 2: Setup .NET
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: '8.0.x'
-
+    
+    # Step 3: Publish App
     - name: Publish app
       run: dotnet publish ./src/AspNet.Core.Blazor.WebAssembly/AspNet.Core.Blazor.WebAssembly.csproj -c Release
 
+    # Step 4: Rewrite base hypertext reference
     - name: Rewrite base hypertext reference
       uses: SteveSandersonMS/ghaction-rewrite-base-href@v1.1.0
       with:
         html_path: ${{ env.PUBLISH_DIR }}/index.html
         base_href: /github-services/
 
+    # Step 5: Archive production artifacts
     - name: Archive production artifacts
       uses: actions/upload-artifact@v4
       with:
         name: published-app
         path: ${{ env.PUBLISH_DIR }}
 
+
+  #====== Deploy to GitHub Pages ======#
   deploy:
     name: Deploy
     runs-on: ubuntu-latest
@@ -45,12 +54,15 @@ jobs:
     environment:
       name: github-pages
     steps:
+
+    # Step 1: Checkout the repository
     - name: Download artifact
       uses: actions/download-artifact@v4
       with:
         name: published-app
         path: ./wwwroot
 
+    # Step 2: Publish to GitHub Pages
     - name: Publish
       if: success()
       uses: crazy-max/ghaction-github-pages@v4
