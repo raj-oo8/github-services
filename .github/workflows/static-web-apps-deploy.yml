@@ -16,24 +16,6 @@ jobs:
         with:
           submodules: true
 
-      # Setup .NET
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: '8.0.x'
-
-      # Restore dependencies
-      - name: Restore dependencies
-        run: dotnet restore
-
-      # Build app
-      - name: Build
-        run: dotnet build --configuration Release --no-restore
-
-      # Publish app
-      - name: Publish
-        run: dotnet publish --configuration Release --no-build --output ./wwwroot
-
       # Deploy to Azure Static Web Apps
       - name: Deploy
         id: builddeploy
