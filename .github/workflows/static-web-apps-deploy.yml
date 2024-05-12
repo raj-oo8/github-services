@@ -1,1 +1,2 @@
-
+name: Deploy to Azure Static Web Apps
+on: workflow_dispatch
