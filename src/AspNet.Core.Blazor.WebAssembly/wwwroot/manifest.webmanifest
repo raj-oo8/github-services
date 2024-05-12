@@ -1,6 +1,6 @@
 {
-  "name": "AspNet.Core.Blazor.WebAssembly",
-  "short_name": "AspNet.Core.Blazor.WebAssembly",
+  "name": "ASP.NET Core Blazor Web",
+  "short_name": "Blazor Web",
   "id": "./",
   "start_url": "./",
   "display": "standalone",
@@ -16,7 +16,8 @@
     {
       "src": "icon-192.png",
       "type": "image/png",
-      "sizes": "192x192"
+      "sizes": "192x192",
+      "purpose": "maskable"
     }
   ]
 }
