@@ -1,1 +1,2 @@
-
+name: Create Azure Static Web Apps
+on: workflow_dispatch
