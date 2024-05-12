@@ -1,77 +1,43 @@
 {
-        "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
-        "contentVersion": "1.0.0.0",
-        "parameters": {
-            "name": {
-                "type": "string"
-            },
-            "location": {
-                "type": "string"
-            },
-            "sku": {
-                "type": "string"
-            },
-            "skucode": {
-                "type": "string"
-            },
-            "repositoryUrl": {
-                "type": "string"
-            },
-            "branch": {
-                "type": "string"
-            },
-            "repositoryToken": {
-                "type": "securestring"
-            },
-            "appLocation": {
-                "type": "string"
-            },
-            "apiLocation": {
-                "type": "string"
-            },
-            "appArtifactLocation": {
-                "type": "string"
-            },
-            "resourceTags": {
-                "type": "object"
-            },
-            "appSettings": {
-                "type": "object"
-            }
-        },
-        "resources": [
-            {
-                "apiVersion": "2021-01-15",
-                "name": "[parameters('name')]",
-                "type": "Microsoft.Web/staticSites",
-                "location": "[parameters('location')]",
-                "tags": "[parameters('resourceTags')]",
-                "properties": {
-                    "repositoryUrl": "[parameters('repositoryUrl')]",
-                    "branch": "[parameters('branch')]",
-                    "repositoryToken": "[parameters('repositoryToken')]",
-                    "buildProperties": {
-                        "appLocation": "[parameters('appLocation')]",
-                        "apiLocation": "[parameters('apiLocation')]",
-                        "appArtifactLocation": "[parameters('appArtifactLocation')]"
-                    }
-                },
-                "sku": {
-                    "Tier": "[parameters('sku')]",
-                    "Name": "[parameters('skuCode')]"
-                },
-                "resources":[
-                    {
-                        "apiVersion": "2021-01-15",
-                        "name": "appsettings",
-                        "type": "config",
-                        "location": "[parameters('location')]",
-                        "properties": "[parameters('appSettings')]",
-                        "dependsOn": [
-                            "[resourceId('Microsoft.Web/staticSites', parameters('name'))]"
-                        ]
-                    }
-                ]
-            }
-        ]
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "staticSites_azure_static_web_apps_001_name": {
+      "defaultValue": "azure-static-web-apps-001",
+      "type": "String"
     }
+  },
+  "variables": {},
+  "resources": [
+    {
+      "type": "Microsoft.Web/staticSites",
+      "apiVersion": "2023-01-01",
+      "name": "[parameters('staticSites_azure_static_web_apps_001_name')]",
+      "location": "East Asia",
+      "sku": {
+        "name": "Free",
+        "tier": "Free"
+      },
+      "properties": {
+        "repositoryUrl": "https://github.com/raj-oo8/github-services",
+        "branch": "main",
+        "stagingEnvironmentPolicy": "Enabled",
+        "allowConfigFileUpdates": true,
+        "provider": "GitHub",
+        "enterpriseGradeCdnStatus": "Disabled"
+      }
+    },
+    {
+      "type": "Microsoft.Web/staticSites/basicAuth",
+      "apiVersion": "2023-01-01",
+      "name": "[concat(parameters('staticSites_azure_static_web_apps_001_name'), '/default')]",
+      "location": "East Asia",
+      "dependsOn": [
+        "[resourceId('Microsoft.Web/staticSites', parameters('staticSites_azure_static_web_apps_001_name'))]"
+      ],
+      "properties": {
+        "applicableEnvironmentsMode": "SpecifiedEnvironments"
+      }
+    }
+  ]
+}

@@ -5,6 +5,12 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspNet.Core.Blazor.WebAssembly", "AspNet.Core.Blazor.WebAssembly\AspNet.Core.Blazor.WebAssembly.csproj", "{09D305EB-4B87-446E-95D1-E3996522DAD4}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Arm Templates", "Arm Templates", "{6730CE33-313B-4258-B4DE-4878AA8792DB}"
+	ProjectSection(SolutionItems) = preProject
+		..\infra\azuredeploy.json = ..\infra\azuredeploy.json
+		..\infra\azuredeploy.parameters.json = ..\infra\azuredeploy.parameters.json
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
