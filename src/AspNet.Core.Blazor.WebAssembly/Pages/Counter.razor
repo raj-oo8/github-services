@@ -1,18 +1,36 @@
-﻿@page "/counter"
-
+﻿@using System.Timers;
+@page "/counter"
 <PageTitle>Counter</PageTitle>
-
 <h1>Counter</h1>
-
 <p role="status">Current count: <FluentBadge Appearance="Appearance.Neutral">@currentCount</FluentBadge></p>
-
 <FluentButton Appearance="Appearance.Accent" @onclick="IncrementCount">Click me</FluentButton>
 
 @code {
     private int currentCount = 0;
+    private Timer timer = new Timer();
+
+    protected override void OnInitialized()
+    {
+        timer = new Timer(1000); // Set the timer to tick every 1000 milliseconds (1 second)
+        timer.Elapsed += TimerElapsed;
+        timer.AutoReset = true; // Continue the timer in a loop
+        timer.Enabled = true; // Start the timer
+    }
+
+    private void TimerElapsed(object? sender, System.Timers.ElapsedEventArgs e)
+    {
+        IncrementCount();
+        InvokeAsync(StateHasChanged); // Re-render the component on the UI thread
+    }
 
     private void IncrementCount()
     {
-        currentCount++;
+        currentCount++; // Increment the counter
+    }
+
+    public void Dispose()
+    {
+        timer?.Dispose(); // Clean up the timer when the component is disposed
     }
 }
+
