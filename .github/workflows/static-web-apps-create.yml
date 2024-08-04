@@ -27,7 +27,7 @@ jobs:
         subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
         resourceGroupName: ${{ secrets.HELLOWORLD_RESOURCE_GROUP_NAME }}
         template: ./infra/azuredeploy.json
-        parameters: ./infra/azuredeploy.parameters.json
+        #parameters: ./infra/azuredeploy.params.json
         deploymentMode: Incremental
 
     # Logout of Azure

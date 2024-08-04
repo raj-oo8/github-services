@@ -10,9 +10,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IaC", "IaC", "{6730CE33-313
 		..\infra\azuredeploy.bicep = ..\infra\azuredeploy.bicep
 		..\infra\azuredeploy.json = ..\infra\azuredeploy.json
 		..\infra\azuredeploy.tf = ..\infra\azuredeploy.tf
-		..\infra\azuredeploy.params.json = ..\infra\azuredeploy.params.json
-		..\infra\azuredeploy.params.bicep = ..\infra\azuredeploy.params.bicep
-		..\infra\azuredeploy.params.tf = ..\infra\azuredeploy.params.tf
 	EndProjectSection
 EndProject
 Global
