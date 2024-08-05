@@ -24,3 +24,5 @@ resource staticSiteBasicAuth 'Microsoft.Web/staticSites/basicAuth@2023-01-01' = 
     applicableEnvironmentsMode: 'SpecifiedEnvironments'
   }
 }
+
+output staticWebAppName string = staticSite.name
