@@ -3,7 +3,7 @@ on: workflow_dispatch
 
 jobs:
 
-  #====== Build and deploy ======#
+  #====== Provision ======#
   provision:
     name: "Provision"
     runs-on: ubuntu-latest
