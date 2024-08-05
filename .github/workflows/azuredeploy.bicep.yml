@@ -43,7 +43,7 @@ jobs:
           echo "staticWebAppName=$STATIC_WEB_APP_NAME" >> $GITHUB_ENV
       
       # Logout of Azure
-      - name: Logout of Azure      
+      - name: Logout of Azure
         run: |
           az logout
 

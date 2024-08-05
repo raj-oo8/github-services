@@ -14,7 +14,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-            submodules: true
+          submodules: true
 
       # Login to Azure
       - name: Login to Azure
@@ -41,7 +41,7 @@ jobs:
           TOKEN=$(az staticwebapp secrets list --name $STATIC_WEB_APP_NAME --resource-group ${{ secrets.HELLOWORLD_RESOURCE_GROUP_NAME }} --query "properties.apiKey" -o tsv)
           echo "token=$TOKEN" >> $GITHUB_ENV
           echo "staticWebAppName=$STATIC_WEB_APP_NAME" >> $GITHUB_ENV
-
+      
       # Logout of Azure
       - name: Logout of Azure
         run: |
@@ -57,4 +57,3 @@ jobs:
           action: 'upload'
           app_location: '/src/AspNet.Core.Blazor.WebAssembly'
           output_location: 'wwwroot'
-
