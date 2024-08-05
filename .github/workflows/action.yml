@@ -4,7 +4,7 @@ on: workflow_dispatch
 jobs:
 
   #====== Test ======#
-  hello_world_job:
+  test:
     runs-on: ubuntu-latest
     name: Test
 
