@@ -39,6 +39,11 @@ jobs:
           TOKEN=$(az staticwebapp secrets list --name $STATIC_WEB_APP_NAME --resource-group ${{ secrets.HELLOWORLD_RESOURCE_GROUP_NAME }} --query "properties.apiKey" -o tsv)
           echo "token=$TOKEN" >> $GITHUB_ENV
           echo "staticWebAppName=$STATIC_WEB_APP_NAME" >> $GITHUB_ENV
+
+      # Debug step to print the token value
+      - name: Debug - Print token value
+        run: |
+          echo "Token: ${{ env.token }}"
       
       # Logout of Azure
       - name: Logout of Azure      
