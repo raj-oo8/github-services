@@ -10,40 +10,44 @@ jobs:
 
     steps:
 
-    # Checkout repository
-    - name: Checkout repository
-      uses: actions/checkout@v4
+      # Checkout repository
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-    # Login to Azure
-    - name: Login to Azure
-      uses: azure/login@v2
-      with:
-        creds: ${{ secrets.AZURE_CREDENTIALS }}
+      # Login to Azure
+      - name: Login to Azure
+        uses: azure/login@v2
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-    # Deploy Bicep template
-    - name: Deploy Bicep Template
-      uses: azure/arm-deploy@v2
-      id: deploy
-      with:
-        subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-        resourceGroupName: ${{ secrets.HELLOWORLD_RESOURCE_GROUP_NAME }}
-        template: ./infra/azuredeploy.bicep
-        deploymentMode: Incremental
-        deploymentName: staticWebAppDeployment
+      # Deploy Bicep template
+      - name: Deploy Bicep Template
+        uses: azure/arm-deploy@v2
+        id: deploy
+        with:
+          subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          resourceGroupName: ${{ secrets.HELLOWORLD_RESOURCE_GROUP_NAME }}
+          template: ./infra/azuredeploy.bicep
+          deploymentMode: Incremental
+          deploymentName: staticWebAppDeployment
 
-    # Get Azure Static Web App deployment token
-    - name: Get Azure Static Web App deployment token
-      id: get-token
-      run: |
-        STATIC_WEB_APP_NAME=$(az deployment group show --resource-group ${{ secrets.HELLOWORLD_RESOURCE_GROUP_NAME }} --name staticWebAppDeployment --query "properties.outputs.staticWebAppName.value" -o tsv)
-        TOKEN=$(az staticwebapp secrets list --name $STATIC_WEB_APP_NAME --resource-group ${{ secrets.HELLOWORLD_RESOURCE_GROUP_NAME }} --query "properties.apiKey" -o tsv)
-        echo "::set-output name=token::$TOKEN"
-        echo "::set-output name=staticWebAppName::$STATIC_WEB_APP_NAME"
-        
-    # Logout of Azure
-    - name: Logout of Azure
-      run: |
-        az logout
+      # Get Azure Static Web App deployment token
+      - name: Get Azure Static Web App deployment token
+        id: get-token
+        run: |
+          STATIC_WEB_APP_NAME=$(az deployment group show --resource-group ${{ secrets.HELLOWORLD_RESOURCE_GROUP_NAME }} --name staticWebAppDeployment --query "properties.outputs.staticWebAppName.value" -o tsv)
+          TOKEN=$(az staticwebapp secrets list --name $STATIC_WEB_APP_NAME --resource-group ${{ secrets.HELLOWORLD_RESOURCE_GROUP_NAME }} --query "properties.apiKey" -o tsv)
+          echo "token=$TOKEN" >> $GITHUB_ENV
+          echo "staticWebAppName=$STATIC_WEB_APP_NAME" >> $GITHUB_ENV
+      
+      # Logout of Azure
+      - name: Logout of Azure      
+        run: |
+          az logout
+
+    outputs:
+      token: ${{ steps.get-token.outputs.token }}
+      staticWebAppName: ${{ steps.get-token.outputs.staticWebAppName }}
 
   #====== Build and deploy ======#
   build_and_deploy:
