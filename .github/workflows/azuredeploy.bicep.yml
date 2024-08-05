@@ -29,16 +29,17 @@ jobs:
         resourceGroupName: ${{ secrets.HELLOWORLD_RESOURCE_GROUP_NAME }}
         template: ./infra/azuredeploy.bicep
         deploymentMode: Incremental
+        deploymentName: staticWebAppDeployment
 
-    # Get Azure Static Web App token key
-    - name: Get Azure Static Web App Token Key
+    # Get Azure Static Web App deployment token
+    - name: Get Azure Static Web App deployment token
       id: get-token
       run: |
-            STATIC_WEB_APP_NAME=$(az deployment group show --resource-group ${{ secrets.HELLOWORLD_RESOURCE_GROUP_NAME }} --name ${{ steps.deploy.outputs.deploymentName }} --query "properties.outputs.staticWebAppName.value" -o tsv)
-            TOKEN=$(az staticwebapp secrets list --name $STATIC_WEB_APP_NAME --resource-group ${{ secrets.HELLOWORLD_RESOURCE_GROUP_NAME }} --query "properties.apiKey" -o tsv)
-            echo "::set-output name=token::$TOKEN"
-            echo "::set-output name=staticWebAppName::$STATIC_WEB_APP_NAME"
-
+        STATIC_WEB_APP_NAME=$(az deployment group show --resource-group ${{ secrets.HELLOWORLD_RESOURCE_GROUP_NAME }} --name staticWebAppDeployment --query "properties.outputs.staticWebAppName.value" -o tsv)
+        TOKEN=$(az staticwebapp secrets list --name $STATIC_WEB_APP_NAME --resource-group ${{ secrets.HELLOWORLD_RESOURCE_GROUP_NAME }} --query "properties.apiKey" -o tsv)
+        echo "::set-output name=token::$TOKEN"
+        echo "::set-output name=staticWebAppName::$STATIC_WEB_APP_NAME"
+        
     # Logout of Azure
     - name: Logout of Azure
       run: |
