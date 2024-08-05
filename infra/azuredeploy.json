@@ -2,7 +2,7 @@
   "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
-    "staticSites_azure_static_web_apps_001_name": {
+    "staticSites_name": {
       "defaultValue": "azure-static-web-apps-001",
       "type": "String"
     }
@@ -12,7 +12,7 @@
     {
       "type": "Microsoft.Web/staticSites",
       "apiVersion": "2023-01-01",
-      "name": "[parameters('staticSites_azure_static_web_apps_001_name')]",
+      "name": "[parameters('staticSites_name')]",
       "location": "East Asia",
       "sku": {
         "name": "Free",
@@ -30,10 +30,10 @@
     {
       "type": "Microsoft.Web/staticSites/basicAuth",
       "apiVersion": "2023-01-01",
-      "name": "[concat(parameters('staticSites_azure_static_web_apps_001_name'), '/default')]",
+      "name": "[concat(parameters('staticSites_name'), '/default')]",
       "location": "East Asia",
       "dependsOn": [
-        "[resourceId('Microsoft.Web/staticSites', parameters('staticSites_azure_static_web_apps_001_name'))]"
+        "[resourceId('Microsoft.Web/staticSites', parameters('staticSites_name'))]"
       ],
       "properties": {
         "applicableEnvironmentsMode": "SpecifiedEnvironments"

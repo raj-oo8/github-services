@@ -1,7 +1,7 @@
-param staticSites_azure_static_web_apps_001_name string = 'azure-static-web-apps-001'
+param staticSites_name string = 'azure-static-web-apps-001'
 
 resource staticSite 'Microsoft.Web/staticSites@2023-01-01' = {
-  name: staticSites_azure_static_web_apps_001_name
+  name: staticSites_name
   location: 'East Asia'
   sku: {
     name: 'Free'

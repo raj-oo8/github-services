@@ -25,15 +25,13 @@ jobs:
       # Deploy ARM template
       - name: Deploy ARM Template
         uses: azure/arm-deploy@v2
-        id: deploy
         with:
           subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
           resourceGroupName: ${{ secrets.HELLOWORLD_RESOURCE_GROUP_NAME }}
           template: ./infra/azuredeploy.json
           deploymentMode: Incremental
-          deploymentName: staticWebAppDeployment
           parameters: |
-            staticSites_azure_static_web_apps_001_name=${{ vars.STATIC_WEB_APP_NAME }}
+            staticSites_name=${{ vars.STATIC_WEB_APP_NAME }}
 
       # Get Azure Static Web App deployment token
       - name: Get Azure Static Web App deployment token
@@ -41,7 +39,6 @@ jobs:
         run: |
           TOKEN=$(az staticwebapp secrets list --name ${{ vars.STATIC_WEB_APP_NAME }} --resource-group ${{ secrets.HELLOWORLD_RESOURCE_GROUP_NAME }} --query "properties.apiKey" -o tsv)
           echo "token=$TOKEN" >> $GITHUB_ENV
-          echo "staticWebAppName=$STATIC_WEB_APP_NAME" >> $GITHUB_ENV
       
       # Logout of Azure
       - name: Logout of Azure
