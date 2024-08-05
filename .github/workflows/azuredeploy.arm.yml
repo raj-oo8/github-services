@@ -3,42 +3,10 @@ on: workflow_dispatch
 
 jobs:
 
-  #====== Provision ======#
-  provision:
-    name: "Provision"
+  #====== Provision and Deploy ======#
+  provision_and_deploy:
+    name: "Provision and Deploy"
     runs-on: ubuntu-latest
-
-    steps:
-
-    # Checkout repository
-    - name: Checkout repository
-      uses: actions/checkout@v4
-
-    # Login to Azure
-    - name: Login to Azure
-      uses: azure/login@v2
-      with:
-        creds: ${{ secrets.AZURE_CREDENTIALS }}
-
-    # Deploy ARM template
-    - name: Deploy ARM Template
-      uses: azure/arm-deploy@v2
-      with:
-        subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-        resourceGroupName: ${{ secrets.HELLOWORLD_RESOURCE_GROUP_NAME }}
-        template: ./infra/azuredeploy.json
-        deploymentMode: Incremental
-
-    # Logout of Azure
-    - name: Logout of Azure
-      run: |
-        az logout
-
-  #====== Build and deploy ======#
-  build_and_deploy:
-    runs-on: ubuntu-latest
-    name: "Build and Deploy"
-    needs: provision
 
     steps:
 
@@ -46,14 +14,44 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          submodules: true
+            submodules: true
+
+      # Login to Azure
+      - name: Login to Azure
+        uses: azure/login@v2
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      # Deploy ARM template
+      - name: Deploy ARM Template
+        uses: azure/arm-deploy@v2
+        with:
+          subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          resourceGroupName: ${{ secrets.HELLOWORLD_RESOURCE_GROUP_NAME }}
+          template: ./infra/azuredeploy.json
+          deploymentMode: Incremental
+          deploymentName: staticWebAppDeployment
+
+      # Get Azure Static Web App deployment token
+      - name: Get Azure Static Web App deployment token
+        id: get-token
+        run: |
+          STATIC_WEB_APP_NAME=$(az deployment group show --resource-group ${{ secrets.HELLOWORLD_RESOURCE_GROUP_NAME }} --name staticWebAppDeployment --query "properties.outputs.staticWebAppName.value" -o tsv)
+          TOKEN=$(az staticwebapp secrets list --name $STATIC_WEB_APP_NAME --resource-group ${{ secrets.HELLOWORLD_RESOURCE_GROUP_NAME }} --query "properties.apiKey" -o tsv)
+          echo "token=$TOKEN" >> $GITHUB_ENV
+          echo "staticWebAppName=$STATIC_WEB_APP_NAME" >> $GITHUB_ENV
+
+      # Logout of Azure
+      - name: Logout of Azure
+        run: |
+          az logout
 
       # Deploy to Azure Static Web Apps
       - name: Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
         with:
-          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_DEPLOY_TOKEN }}
+          azure_static_web_apps_api_token: ${{ env.token }}
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           action: 'upload'
           app_location: '/src/AspNet.Core.Blazor.WebAssembly'
