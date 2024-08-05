@@ -39,20 +39,11 @@ jobs:
           TOKEN=$(az staticwebapp secrets list --name $STATIC_WEB_APP_NAME --resource-group ${{ secrets.HELLOWORLD_RESOURCE_GROUP_NAME }} --query "properties.apiKey" -o tsv)
           echo "token=$TOKEN" >> $GITHUB_ENV
           echo "staticWebAppName=$STATIC_WEB_APP_NAME" >> $GITHUB_ENV
-
-      # Debug step to print the token value
-      - name: Debug - Print token value
-        run: |
-          echo "Token: ${{ env.token }}"
       
       # Logout of Azure
       - name: Logout of Azure      
         run: |
           az logout
-
-    outputs:
-      token: ${{ steps.get-token.outputs.token }}
-      staticWebAppName: ${{ steps.get-token.outputs.staticWebAppName }}
 
   #====== Build and deploy ======#
   build_and_deploy:
@@ -68,17 +59,12 @@ jobs:
         with:
           submodules: true
 
-      # Debug step to print the token value from provision job
-      - name: Debug - Print provision output token value
-        run: |
-          echo "Provision output token: ${{ needs.provision.outputs.token }}"
-
       # Deploy to Azure Static Web Apps
       - name: Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
         with:
-          azure_static_web_apps_api_token: ${{ needs.provision.outputs.token }}
+          azure_static_web_apps_api_token: ${{ env.token }}
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           action: 'upload'
           app_location: '/src/AspNet.Core.Blazor.WebAssembly'
