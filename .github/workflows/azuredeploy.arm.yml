@@ -1,4 +1,4 @@
-name: Azure Static Web Apps ARM Provision and Deploy
+name: Azure Resource Manager Provision and Deploy
 on: workflow_dispatch
 
 jobs:
