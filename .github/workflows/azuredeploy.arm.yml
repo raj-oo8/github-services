@@ -32,29 +32,14 @@ jobs:
           template: ./infra/azuredeploy.json
           deploymentMode: Incremental
           deploymentName: staticWebAppDeployment
+          parameters: |
+            staticSites_azure_static_web_apps_001_name=${{ vars.STATIC_WEB_APP_NAME }}
 
       # Get Azure Static Web App deployment token
       - name: Get Azure Static Web App deployment token
         id: get-token
         run: |
-          echo "Fetching STATIC_WEB_APP_NAME..."
-          STATIC_WEB_APP_NAME=$(az deployment group show --resource-group ${{ secrets.HELLOWORLD_RESOURCE_GROUP_NAME }} --name staticWebAppDeployment --query "properties.outputs.staticWebAppName.value" -o tsv)
-          echo "STATIC_WEB_APP_NAME: $STATIC_WEB_APP_NAME"
-          
-          if [ -z "$STATIC_WEB_APP_NAME" ]; then
-            echo "Error: STATIC_WEB_APP_NAME is empty"
-            exit 1
-          fi
-          
-          echo "Fetching TOKEN..."
-          TOKEN=$(az staticwebapp secrets list --name $STATIC_WEB_APP_NAME --resource-group ${{ secrets.HELLOWORLD_RESOURCE_GROUP_NAME }} --query "properties.apiKey" -o tsv)
-          echo "TOKEN: $TOKEN"
-          
-          if [ -z "$TOKEN" ]; then
-            echo "Error: TOKEN is empty"
-            exit 1
-          fi
-          
+          TOKEN=$(az staticwebapp secrets list --name ${{ vars.STATIC_WEB_APP_NAME }} --resource-group ${{ secrets.HELLOWORLD_RESOURCE_GROUP_NAME }} --query "properties.apiKey" -o tsv)
           echo "token=$TOKEN" >> $GITHUB_ENV
           echo "staticWebAppName=$STATIC_WEB_APP_NAME" >> $GITHUB_ENV
       
