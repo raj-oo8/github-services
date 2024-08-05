@@ -1,4 +1,4 @@
-name: Deploy to GitHub Pages
+name: GitHub Pages Deploy
 on: workflow_dispatch
 env:
   PUBLISH_DIR: src/AspNet.Core.Blazor.WebAssembly/bin/Release/net8.0/publish/wwwroot

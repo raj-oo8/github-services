@@ -1,4 +1,4 @@
-name: Test custom action
+name: Action Test
 on: workflow_dispatch
 
 jobs:
