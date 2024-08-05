@@ -18,8 +18,8 @@ resource staticSite 'Microsoft.Web/staticSites@2023-01-01' = {
 }
 
 resource staticSiteBasicAuth 'Microsoft.Web/staticSites/basicAuth@2023-01-01' = {
-  name: '${staticSites_azure_static_web_apps_001_name}/default'
-  location: 'East Asia'
+  parent: staticSite
+  name: 'default'
   dependsOn: [
     staticSite
   ]
