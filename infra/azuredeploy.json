@@ -7,7 +7,6 @@
       "type": "String"
     }
   },
-  "variables": {},
   "resources": [
     {
       "type": "Microsoft.Web/staticSites",
@@ -15,28 +14,7 @@
       "name": "[parameters('staticSites_name')]",
       "location": "East Asia",
       "sku": {
-        "name": "Free",
         "tier": "Free"
-      },
-      "properties": {
-        "repositoryUrl": "https://github.com/raj-oo8/github-services",
-        "branch": "main",
-        "stagingEnvironmentPolicy": "Enabled",
-        "allowConfigFileUpdates": true,
-        "provider": "GitHub",
-        "enterpriseGradeCdnStatus": "Disabled"
-      }
-    },
-    {
-      "type": "Microsoft.Web/staticSites/basicAuth",
-      "apiVersion": "2023-01-01",
-      "name": "[concat(parameters('staticSites_name'), '/default')]",
-      "location": "East Asia",
-      "dependsOn": [
-        "[resourceId('Microsoft.Web/staticSites', parameters('staticSites_name'))]"
-      ],
-      "properties": {
-        "applicableEnvironmentsMode": "SpecifiedEnvironments"
       }
     }
   ]
