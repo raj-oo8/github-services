@@ -13,14 +13,9 @@ variable "resource_group_name" {
   type        = string
 }
 
-resource "azurerm_resource_group" "example" {
-  name     = var.resource_group_name
-  location = "East Asia"
-}
-
 resource "azurerm_static_web_app" "example" {
   name                = var.staticSites_name
-  location            = azurerm_resource_group.example.location
-  resource_group_name = azurerm_resource_group.example.name
+  location            = "East Asia"
+  resource_group_name = var.resource_group_name
   sku_tier            = "Free"
 }
