@@ -396,4 +396,13 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
-infra/terraform.exe
+
+# Terraform temporary execution files
+*/terraform.exe
+*/.terraform.lock.hcl
+*/terraform.tfstate
+*/.terraform/providers/registry.terraform.io/hashicorp/azurerm/3.114.0/windows_386/LICENSE.txt
+*/.terraform/providers/registry.terraform.io/hashicorp/azurerm/3.114.0/windows_386/terraform-provider-azurerm_v3.114.0_x5.exe
+*/terraform.tfstate.1722923016.backup
+*/terraform.tfstate.1722923371.backup
+*/terraform.tfstate.backup
