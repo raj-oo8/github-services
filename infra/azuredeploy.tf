@@ -1,24 +1,14 @@
-provider "azurerm" {
-  features {}
-}
-
-variable "staticSites_azure_static_web_apps_001_name" {
-  type    = string
+variable "staticSites_name" {
   default = "azure-static-web-apps-001"
 }
 
 resource "azurerm_static_site" "example" {
-  name                = var.staticSites_azure_static_web_apps_001_name
+  name                = var.staticSites_name
   location            = "East Asia"
   resource_group_name = azurerm_resource_group.example.name
-
-  sku {
-    name = "Free"
-    tier = "Free"
-  }
-
-  repository_url              = "https://github.com/raj-oo8/github-services"
-  branch                      = "main"
+  sku_tier            = "Free"
+  repository_url      = "https://github.com/raj-oo8/github-services"
+  branch              = "main"
   staging_environment_policy  = "Enabled"
   allow_config_file_updates   = true
   provider                    = "GitHub"
@@ -26,18 +16,7 @@ resource "azurerm_static_site" "example" {
 }
 
 resource "azurerm_static_site_basic_auth" "example" {
-  name                = "${azurerm_static_site.example.name}/default"
-  location            = "East Asia"
-  resource_group_name = azurerm_resource_group.example.name
-
-  depends_on = [
-    azurerm_static_site.example
-  ]
-
+  static_site_id               = azurerm_static_site.example.id
+  name                         = "default"
   applicable_environments_mode = "SpecifiedEnvironments"
-}
-
-resource "azurerm_resource_group" "example" {
-  name     = "example-resources"
-  location = "East Asia"
 }
