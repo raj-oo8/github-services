@@ -34,7 +34,6 @@ jobs:
             staticSites_name=${{ vars.STATIC_WEB_APP_NAME }}
             repositoryUrl='https://github.com/${{ github.repository }}'
             branch='main'
-            repositoryToken='${{ secrets.GITHUB_TOKEN }}'
 
       # Get Azure Static Web App deployment token
       - name: Get Azure Static Web App deployment token
