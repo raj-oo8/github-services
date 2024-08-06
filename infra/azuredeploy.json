@@ -3,8 +3,8 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "staticSites_name": {
-      "defaultValue": "azure-static-web-apps-001",
-      "type": "String"
+      "type": "string",
+      "defaultValue": "azure-static-web-apps-001"
     }
   },
   "resources": [
@@ -14,6 +14,7 @@
       "name": "[parameters('staticSites_name')]",
       "location": "East Asia",
       "sku": {
+        "name": "Free",
         "tier": "Free"
       }
     }
