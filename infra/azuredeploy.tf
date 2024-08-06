@@ -23,8 +23,4 @@ resource "azurerm_static_web_app" "example" {
   location            = azurerm_resource_group.example.location
   resource_group_name = azurerm_resource_group.example.name
   sku_tier            = "Free"
-
-  identity {
-    type = "SystemAssigned"
-  }
 }
