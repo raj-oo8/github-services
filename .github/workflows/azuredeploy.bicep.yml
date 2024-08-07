@@ -30,10 +30,7 @@ jobs:
           resourceGroupName: ${{ secrets.HELLOWORLD_RESOURCE_GROUP_NAME }}
           template: ./infra/azuredeploy.bicep
           deploymentMode: Incremental
-          parameters: |
-            staticSites_name=${{ vars.STATIC_WEB_APP_NAME }}
-            repositoryUrl=https://github.com/${{ github.repository }}
-            branch=main
+          parameters: staticSites_name=${{ vars.STATIC_WEB_APP_NAME }} repositoryUrl=https://github.com/${{ github.repository }} branch=main
 
       # Get Azure Static Web App deployment token
       - name: Get Azure Static Web App deployment token
