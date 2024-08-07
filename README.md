@@ -1,4 +1,4 @@
-# GitHub Services
+# GitHub Samples
 
 ## Description
 GitHub Services is a repository that focuses on demoing feature of GitHub using Blazor Web Assembly and Azure Static Web Apps.
