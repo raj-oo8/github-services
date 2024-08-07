@@ -1,17 +1,16 @@
 param staticSites_name string = 'azure-static-web-apps-001'
-param location string = 'East Asia'
-//param repositoryUrl string
+param repositoryUrl string
 param branch string = 'main'
 
 resource staticSite 'Microsoft.Web/staticSites@2023-01-01' = {
   name: staticSites_name
-  location: location
+  location: 'East Asia'
   sku: {
     name: 'Free'
     tier: 'Free'
   }
   properties: {
-    //repositoryUrl: repositoryUrl
+    repositoryUrl: repositoryUrl
     branch: branch
     provider: 'GitHub'
   }
