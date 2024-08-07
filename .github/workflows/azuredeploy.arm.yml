@@ -30,8 +30,7 @@ jobs:
           resourceGroupName: ${{ secrets.HELLOWORLD_RESOURCE_GROUP_NAME }}
           template: ./infra/azuredeploy.json
           deploymentMode: Incremental
-          parameters: |
-            staticSites_name=${{ vars.STATIC_WEB_APP_NAME }}
+          parameters: staticSites_name=${{ vars.STATIC_WEB_APP_NAME }}
 
       # Get Azure Static Web App deployment token
       - name: Get Azure Static Web App deployment token

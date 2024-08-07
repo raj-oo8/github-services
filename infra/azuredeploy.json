@@ -1,28 +1,10 @@
 {
   "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
-  "metadata": {
-    "_generator": {
-      "name": "bicep",
-      "version": "0.29.47.4906",
-      "templateHash": "3400584100582906428"
-    }
-  },
   "parameters": {
     "staticSites_name": {
       "type": "string",
       "defaultValue": "azure-static-web-apps-001"
-    },
-    "location": {
-      "type": "string",
-      "defaultValue": "East Asia"
-    },
-    "repositoryUrl": {
-      "type": "string"
-    },
-    "branch": {
-      "type": "string",
-      "defaultValue": "main"
     }
   },
   "resources": [
@@ -30,16 +12,11 @@
       "type": "Microsoft.Web/staticSites",
       "apiVersion": "2023-01-01",
       "name": "[parameters('staticSites_name')]",
-      "location": "[parameters('location')]",
+      "location": "East Asia",
       "sku": {
-        "name": "Free",
-        "tier": "Free"
+        "name": "Free"
       },
-      "properties": {
-        "repositoryUrl": "[parameters('repositoryUrl')]",
-        "branch": "[parameters('branch')]",
-        "provider": "GitHub"
-      }
+      "properties": {}
     }
   ]
 }
