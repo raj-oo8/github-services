@@ -3,7 +3,6 @@ provider "azurerm" {
 }
 
 variable "staticSites_name" {
-  description = "The name of the static site"
   type        = string
   default     = "azure-static-web-apps-001"
 }
