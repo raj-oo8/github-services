@@ -26,7 +26,7 @@ The repository includes code written in the following languages:
 
 - GitHub Pages
 - Service Worker
-- Progressive Web App
+- Progressive Web App - src/AspNet.Core.Blazor.WebAssembly/wwwroot/manifest.webmanifest
 - Blazor WebAssembly
 - Azure Static Web Apps
 
