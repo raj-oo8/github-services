@@ -31,7 +31,7 @@ jobs:
       uses: SteveSandersonMS/ghaction-rewrite-base-href@v1.1.0
       with:
         html_path: ${{ env.PUBLISH_DIR }}/index.html
-        base_href: /github-services/
+        base_href: /github-samples/
 
     # Step 5: Archive production artifacts
     - name: Archive production artifacts
