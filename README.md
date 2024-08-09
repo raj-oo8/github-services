@@ -35,11 +35,3 @@ This repository contains sample projects covering various topics to demonstrate 
 
 - GitHub Marketplace
 - GitHub Copilot
-
-## Getting Started
-
-To get started with any of the samples, clone the repository and navigate to the specific folder of interest.
-
-```sh
-git clone https://github.com/raj-oo8/github-samples.git
-cd github-samples
