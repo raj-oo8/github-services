@@ -1,18 +1,6 @@
 # GitHub Samples
 
-This repository contains sample projects in various programming languages to demonstrate different features and functionalities.
-
-## Language Composition
-
-The repository includes code written in the following languages:
-
-- **HTML**: 42%
-- **CSS**: 27.1%
-- **JavaScript**: 21.9%
-- **C#**: 3.5%
-- **HCL**: 2.2%
-- **Dockerfile**: 1.8%
-- **Other**: 1.5%
+This repository contains sample projects covering various topics to demonstrate different features and functionalities.
 
 ## Topics Covered
 
