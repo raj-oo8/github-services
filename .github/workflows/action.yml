@@ -12,7 +12,7 @@ jobs:
 
       # Step 1: Checkout the repository
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       # Step 2: Run custom action
       - name: Run custom action 
